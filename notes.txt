@@ -1,0 +1,31 @@
+conda create -n mn python=3.10 --yes
+conda activate mn
+
+1. Data Handling & Preprocessing <- see data_handling.py
+Loading Data
+Normalization
+Batching
+Flattening
+
+2. Model Architecture
+MLP(784, [128, 64, 10])
+
+3. Loss Function
+Instead of MSE loss, use Cross-Entropy Loss:
+loss_fn = torch.nn.CrossEntropyLoss()
+Since labels are categorical (0-9), they must be one-hot or integer-encoded
+
+4. Gradient Updates with Optimizer
+Instead of manually setting param.grad = 0.0, use PyTorch’s optimizer
+optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+optimizer.zero_grad()
+loss.backward()
+optimizer.step()
+
+5. Evaluation Metrics
+correct = (predictions.argmax(dim=1) == labels).sum().item()
+accuracy = correct / len(labels)
+
+6. Computational Complexity
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
